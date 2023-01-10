@@ -1,8 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CartItem from './CartItem';
+import { clearCart } from '../features/cart/CartSlice';
+import { toggleModal } from '../features/modal/ModalSlice';
 
 const CartContainer = () => {
+  const dispatch = useDispatch();
+
   const  { amount, cartItems, total }  = useSelector((state) => state.cart);
 
   if (amount < 1) {
@@ -33,7 +37,12 @@ const CartContainer = () => {
             合計 <span>{total}円</span>
           </h4>
         </div>
-        <button className="btn clear-btn">全削除</button>
+        <button 
+          className="btn clear-btn"
+          onClick={() => dispatch(toggleModal())}  
+        >
+          全削除
+        </button>
       </footer>
     </section>
   );
